@@ -1,0 +1,43 @@
+.headerContainer {
+    .divContainer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-block: 1rem;
+        padding-inline: clamp(1rem, 1.385rem + -1.538vw, 0rem);
+    }
+
+    
+    .divBox {
+        display: flex;
+        align-items: center;
+        gap: clamp(0.2rem, -0.667rem + 3.467vw, 1.5rem);
+        justify-content: space-between;
+    }
+
+}
+
+.imgLogo {
+    width: 6rem;
+    height: 2.5rem;
+}
+
+@media (max-width: 580px) {
+    .divBox {
+        flex-direction: column-reverse;
+        align-items: flex-end;
+        span {
+            width: 100%;
+            text-align: end;
+        }
+    }
+}
+@media (max-width: 628px) {
+    .divBox {
+        align-items: center;
+    }
+    .spanLupa {
+        display: none;
+    }
+}
+

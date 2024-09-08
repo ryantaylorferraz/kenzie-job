@@ -1,0 +1,35 @@
+.ulBox {
+    display: flex;
+    flex-direction: column;
+    gap: 1.3rem;
+    padding-top: .8rem;
+}
+
+    .divNotFind {
+        display: flex;
+        flex-direction: column;
+        gap: .5rem;
+        margin-top: 1rem;
+        align-items: center;
+
+    }
+
+.divContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    .divFirst {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .divShowText {
+        width: 100%;
+        // max-width: 500px;
+        padding-top: 1rem;
+        padding-left: .5rem;
+    }
+
+}

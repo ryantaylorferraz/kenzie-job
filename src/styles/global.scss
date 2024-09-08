@@ -1,0 +1,35 @@
+:root {
+    --color-black: #101119;
+    --color-white: #FFFFFF;
+    --color-ligthblue: #F9F9FF;
+    --color-blue: #8490FF;
+
+    --font-primary: "Montserrat", sans-serif;
+    --font-secondary: "Inter", system-ui;
+
+}
+
+header {
+    width: 100%;
+    max-width: 1100px;
+	margin: 0 auto;
+}
+
+button, span {
+    cursor: pointer;
+}
+body, html {
+    height: 100%;
+    margin: 0;
+    font-family: var(--font-primary);
+}
+
+#root {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex: 1;
+}

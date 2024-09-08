@@ -1,0 +1,13 @@
+.btnBox {
+    display: block;
+    background-color: var(--color-blue);
+    border-radius: 255px;
+    color: var(--color-white);
+    font-weight: 600;
+    font-family: var(--font-primary);
+    // height: 3rem;
+    font-size: clamp(0.7rem, 0.167rem + 2.133vw, 1.5rem);
+    padding-inline: clamp(1rem, 0.333rem + 2.667vw, 2rem);
+    padding-block: .8rem;
+    align-self: flex-end;
+}

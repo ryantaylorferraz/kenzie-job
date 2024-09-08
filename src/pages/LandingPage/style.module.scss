@@ -1,0 +1,23 @@
+.sectionContainer {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding-inline: clamp(1rem, 1.385rem + -1.538vw, 0rem);
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+    .divContainer{
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+        
+            .divBox {
+                display: flex;
+                gap: 2.5rem;
+                p {
+                    font-weight: 600;
+                }
+            }
+    }
+}

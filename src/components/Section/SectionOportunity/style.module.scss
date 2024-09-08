@@ -1,0 +1,26 @@
+.sectionBox {
+    margin-bottom: 4rem;
+    
+    .divBox {
+        width: 100%;
+        max-width: 900px;
+        margin: 0 auto;
+        padding-inline: clamp(1rem, 1.385rem + -1.538vw, 0rem);
+
+        .titleOportunity {
+            margin-top: 1rem;
+            color: var(--color-blue);
+        }
+
+    }
+}
+
+
+@media(max-width: 650px) {
+    .liBox {
+        .divContainer {
+            flex-direction: column;
+            gap: 1rem;
+        }
+    }
+}

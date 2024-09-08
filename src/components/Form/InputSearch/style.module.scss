@@ -1,0 +1,11 @@
+.inputBox {
+    // width: clamp(14rem, 7.077rem + 27.692vw, 32rem);
+    height: clamp(2rem, 1.423rem + 2.308vw, 3.5rem);
+    border-radius: 255px;
+    border: 1px solid var(--color-blue);
+
+    &:focus {
+        border: 2px solid var(--color-blue);
+        outline: none;
+    }
+}

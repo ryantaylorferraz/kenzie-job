@@ -1,0 +1,30 @@
+.sectionContainer {
+  
+  .divContainer {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding-inline: clamp(1rem, 1.385rem + -1.538vw, 0rem);
+
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: clamp(1rem, 0.615rem + 1.538vw, 2rem);
+
+      h1 {
+        color: var(--color-blue);
+      }
+      .formLogin {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        input {
+          width: clamp(15rem, 11.154rem + 15.385vw, 25rem);
+          height: clamp(2rem, 1.615rem + 1.538vw, 3rem);
+          font-size: clamp(0.9rem, 0.669rem + 0.923vw, 1.5rem);
+          padding-left: 1.5rem;
+        }
+      }
+      
+    }
+  }
