@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
 import { api } from '../service/api'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
 export const JobContext = createContext({})
@@ -10,6 +10,16 @@ export const JobProvider = ({children}) => {
     const [ search, setSearch ] = useState("")
     const [vagas, setVagas] = useState(false);
     const [showModal, setShowModal] = useState(false)
+    const [jobId, setJobId] = useState(() => {
+      const savedJob = localStorage.getItem("@JOB:");
+      return savedJob ? JSON.parse(savedJob) : [];
+  })
+
+  const navigate = useNavigate()
+
+    useEffect(() => {
+      localStorage.setItem("@JOB:", JSON.stringify(jobId))
+    }, [jobId])
     
 
     const [jobModal, setJobModal] = useState(null)
@@ -93,6 +103,32 @@ export const JobProvider = ({children}) => {
   
     }, [userId])
 
+    const updateVaga = async (updatingId, formData) => {
+      try {
+          const { data } = await api.patch(`jobs/${updatingId.id}`, formData, {
+              headers: {
+                  Authorization: `Bearer ${token}`
+              }
+          });
+  
+          setJobByCompany((prevJobs) => {
+            console.log(prevJobs);
+            
+              const updatedJobs = prevJobs.map(job => 
+                  job.id === updatingId.id ? data : job
+              );
+              return updatedJobs;
+          });
+  
+          toast.success("Vaga atualizada com sucesso");
+          navigate("/landingpage/jobs");
+  
+      } catch (error) {
+          console.error(error);
+          toast.error("Erro ao atualizar a vaga");
+      }
+  };
+
     const deleteVaga = async (deletingId) => {
       try {
         await api.delete(`jobs/${deletingId}`, {
@@ -108,8 +144,9 @@ export const JobProvider = ({children}) => {
       }
     }
 
+
   return (
-    <JobContext.Provider value={{listJob, filterJob, setSearch, vagas, setVagas, registerVaga, showModal, setShowModal, registerShowModal, jobModal, createVaga, jobByCompany, setJobByCompany, deleteVaga}}>
+    <JobContext.Provider value={{listJob, filterJob, setSearch, vagas, setVagas, registerVaga, showModal, setShowModal, registerShowModal, jobModal, createVaga, jobByCompany, setJobByCompany, deleteVaga, updateVaga, jobId, setJobId}}>
         {children}
     </JobContext.Provider>
   )

@@ -13,7 +13,7 @@
 .paragraphBoldModal {
   font-family: var(--font-secondary);
   color: var(--color-blue);
-  font-size: 2.75rem;
+  font-size: clamp(2rem, 1.7rem + 1.2vw, 2.75rem);
   font-weight: 700;
 }
 

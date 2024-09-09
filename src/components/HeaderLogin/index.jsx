@@ -12,7 +12,7 @@ export const HeaderLogin = ({text, text2, button}) => {
   return (
     <header className={styles.headerContainer}>
         <div className={styles.divContainer}>
-          <Link to="/" ><img className={styles.imgLogo} src={imgLogo} alt="logo Job" /></Link>
+          <img className={styles.imgLogo} src={imgLogo} alt="logo Job" />
           <div className={styles.divBox}>
               <Link to="/landingpage" ><p className={`paragraphBold ${styles.text1}`}>{text}</p></Link> 
               <Link to="/landingpage" ><p className='paragraphBold2'>{text2}</p></Link> 

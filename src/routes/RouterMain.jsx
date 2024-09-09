@@ -9,6 +9,7 @@ import { JobPage } from "../pages/Job/JobPage";
 import { ApplicationPage } from "../pages/Application/ApplicationPage";
 import { JobSearchPage } from "../pages/Job/JobSearchPage";
 import { JobCreatePage } from "../pages/Job/JobCreatePage";
+import { JobUpdatePage } from "../pages/Job/JobUpdatePage";
 
 export const RouterMain = () => {
   return (
@@ -22,6 +23,7 @@ export const RouterMain = () => {
     <Route index element={<LandingPage />} />
     <Route path="jobs" element={<JobPage />} />
     <Route path="jobs/createjob" element={<JobCreatePage />} />
+    <Route path="jobs/updatejob" element={<JobUpdatePage />} />
     <Route path="applications" element={<ApplicationPage />} />
 </Route>
 
