@@ -4,12 +4,16 @@ import { Footer } from "../../components/Footer";
 import { ButtonSolid } from "../../components/Button/ButtonSolid";
 import { ListMyVagas } from "../../components/List/ListMyVagas";
 import styles from "./style.module.scss"
+import { useUserContext } from "../../providers/UserContext";
+import { HeaderLogin } from "../../components/HeaderLogin";
 
 export const JobPage = () => {
+  const {user} = useUserContext()
+  const firstLetra = user?.substring(0, 2)
   return (
     <>
-      <Header />
-      <main>
+    <HeaderLogin text={firstLetra?.toUpperCase()} button={"Sair"}  />
+    <main>
         <div className={styles.divBox}>
           <p>Minhas vagas</p>
           <p>Minhas candidaturas</p>

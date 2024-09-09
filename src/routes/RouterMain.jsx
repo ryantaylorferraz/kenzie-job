@@ -7,6 +7,7 @@ import { RegisterPage } from "../pages/RegisterPage";
 import { LandingPage } from "../pages/LandingPage";
 import { ProtectedRouter } from "../components/ProtectedRouter/index.";
 import { JobPage } from "../pages/JobPage";
+import { ApplicationPage } from "../pages/ApplicationPage";
 
 export const RouterMain = () => {
   return (
@@ -17,9 +18,11 @@ export const RouterMain = () => {
       <Route path="/registerpage" element={<RegisterPage />} />
 
       <Route path="/landingpage" element={<ProtectedRouter />}>
-    <Route index element={<LandingPage />} /> {/* Renderiza em /landingpage */}
-    <Route path="jobs" element={<JobPage />} /> {/* Renderiza em /landingpage/jobs */}
-</Route>
+        <Route index element={<LandingPage />} />
+        <Route path="jobs" element={<JobPage />} />
+        <Route path="applications" element={<ApplicationPage />} />
+        
+      </Route>
     </Routes>
   );
 };
