@@ -19,8 +19,8 @@ export const LandingPage = () => {
           <div className={styles.divContainer}>
             <p>Seja bem vindo (a), selecione uma das opções abaixo:</p>
             <div className={styles.divBox}>
-              <Link to="/landingpage/jobs" ><p>Minhas vagas</p></Link>
-              <Link to="/landingpage/applications" ><p>Minhas candidaturas</p></Link>
+              <Link to="/landingpage/jobs" ><p className="paragraphBold2">Minhas vagas</p></Link>
+              <Link to="/landingpage/applications" ><p className="paragraphBold2">Minhas candidaturas</p></Link>
             </div>
           </div>
         </section>

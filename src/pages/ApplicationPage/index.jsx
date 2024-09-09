@@ -1,22 +1,25 @@
 import React from "react";
-import { Header } from "../../components/Header";
 import { Footer } from "../../components/Footer";
-import { ButtonSolid } from "../../components/Button/ButtonSolid";
-import { ListMyVagas } from "../../components/List/ListMyVagas";
-import styles from "./style.module.scss"
+import styles from "./style.module.scss";
 import { ListMyApplications } from "../../components/List/ListMyApplications";
+import { useUserContext } from "../../providers/UserContext";
+import { HeaderLogin } from "../../components/HeaderLogin";
+import { Link } from "react-router-dom";
 
 export const ApplicationPage = () => {
+  const { user } = useUserContext();
+  const firstLetra = user?.substring(0, 2);
+
   return (
     <>
-      <Header />
+      <HeaderLogin text={firstLetra?.toUpperCase()} button={"Sair"} />
       <main>
+        <section className={styles.sectionContainer}>
         <div className={styles.divBox}>
-          <p>Minhas vagas</p>
-          <p>Minhas candidaturas</p>
+        <Link to="/landingpage/jobs" ><p className="paragraphBold2">Minhas vagas</p></Link>
+        <Link to="/landingpage/applications" ><p className="paragraphBold2">Minhas candidaturas</p></Link>
         </div>
-        <section>
-            <h1>Minhas candidaturas</h1>
+          <h1 className="title4">Minhas candidaturas</h1>
           <div>
             <ul>
               <ListMyApplications />

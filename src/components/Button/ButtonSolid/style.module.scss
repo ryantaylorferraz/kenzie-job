@@ -1,5 +1,7 @@
 .btnBox {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background-color: var(--color-blue);
     border-radius: 255px;
     color: var(--color-white);

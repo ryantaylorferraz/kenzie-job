@@ -8,6 +8,7 @@ import { useJobContext } from "../../providers/JobContext";
 import { ModalRegister } from "../../components/Modal/modalReview";
 import { Header } from "../../components/Header";
 
+
 export const HomePage = () => {
   const {showModal} = useJobContext()
   return (

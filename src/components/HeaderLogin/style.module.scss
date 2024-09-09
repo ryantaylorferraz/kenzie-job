@@ -11,7 +11,14 @@
     .divBox {
         display: flex;
         align-items: center;
-        gap: clamp(0.2rem, -0.667rem + 3.467vw, 1.5rem);
+        gap: clamp(0.2rem, -0.12rem + 1.28vw, 1rem);
+        .text1 {
+            background-color: var(--color-blue);
+            padding: .6rem;
+            border-radius: 100%;
+            color: var(--color-white);
+        }
+
     }
 
 
