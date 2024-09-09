@@ -1,8 +1,8 @@
 import React from "react";
 import { Header } from "../../components/Header";
-import { Footer } from "../../components/Footer";
 import { SectionLogin } from "../../components/Section/SectionLogin";
 import styles from "./style.module.scss";
+import { Footer } from "../../components/Footer";
 
 
 export const LoginPage = () => {

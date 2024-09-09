@@ -1,0 +1,57 @@
+.sectionContainer {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding-inline: clamp(1rem, 1.385rem + -1.538vw, 0rem);
+    margin-bottom: 1rem;
+
+    .linkBox {
+        display: flex;
+        align-items: center;
+        gap: .5rem;
+        span {
+            color: var(--color-blue);
+        }
+    }
+
+    .divContainer {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        .formContainer {
+            margin-top: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: .5rem;
+            width: 60%;
+
+            input, textarea {
+                padding-left: 1rem;
+                font-size: 1rem;
+                font-family: var(--font-primary);
+                color: var(--color-black);
+                font-size: clamp(0.8rem, 0.72rem + 0.32vw, 1rem);
+                font-weight: 700;
+            }
+
+            textarea {
+                border-radius: 25px;
+                border: 1px solid var(--color-blue);
+                padding-top: .8rem;
+                &:focus {
+                    border: 2px solid var(--color-blue);
+                    outline: none;
+                }
+            }
+
+            .spanAdd {
+                display: flex;
+                margin-right: .4rem;
+                font-size: clamp(1rem, 0.6rem + 1.6vw, 2rem);
+            }
+        }
+    }
+
+}

@@ -3,10 +3,10 @@ import React from "react";
 import { SectionBanner } from "../../components/Section/SectionBanner";
 import { SectionAbout } from "../../components/Section/SectionAbout";
 import { SectionOportunity } from "../../components/Section/SectionOportunity";
-import { Footer } from "../../components/Footer";
-import { useJobContext } from "../../providers/JobContext";
-import { ModalRegister } from "../../components/Modal/modalReview";
 import { Header } from "../../components/Header";
+import { useJobContext } from "../../providers/JobContext";
+import { Footer } from "../../components/Footer";
+import { ModalRegister } from "../../components/Modal/ModalRegister";
 
 
 export const HomePage = () => {

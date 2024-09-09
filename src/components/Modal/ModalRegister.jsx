@@ -1,9 +1,9 @@
 import { useForm } from "react-hook-form";
-import { useJobContext } from "../../providers/JobContext";
 import { ButtonSolid } from "../Button/ButtonSolid";
 import { Input } from "../Form/Input";
 import styles from "./style.module.scss";
 import { generatedId } from "../../count/count";
+import { useJobContext } from "../../providers/JobContext";
 
 export const ModalRegister = ({movieImg}) => {
   const {jobModal, registerVaga, showModal, setShowModal} = useJobContext()
@@ -27,7 +27,7 @@ export const ModalRegister = ({movieImg}) => {
         <div className={styles.modalBox}>
             <span onClick={() => setShowModal(!showModal)}>X</span>
             <h1 className="paragraphBoldModal">Candidatar-se</h1>
-            <p className="paragraph">Você está se canditando para {jobModal.position} em
+            <p className="paragraph">Você está se canditando para <span>{jobModal.position}</span> em
             <span> Kenzie Academy Brasil</span></p>
             <form className={styles.formModal} onSubmit={handleSubmit(submit)} >
                 <Input type="text" placeholder="Nome" required {...register("name")} />

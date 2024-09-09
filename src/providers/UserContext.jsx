@@ -1,11 +1,15 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { api } from "../service/api";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useJobContext } from "./JobContext";
 
 export const UserContext = createContext({})
 
 
 export const UserProvider = ({children}) => {
+    const {setJobByCompany} = useJobContext()
+
+
     const [user, setUser] = useState(null)
 
     const token = localStorage.getItem("@TOKEN:")
@@ -15,7 +19,6 @@ export const UserProvider = ({children}) => {
 
     const navigate = useNavigate()
     const location = useLocation()
-    console.log(location.pathname);
     
 
     useEffect(() => {
@@ -23,7 +26,6 @@ export const UserProvider = ({children}) => {
             if(token && userId) {
                 try {
                     const {data} = await api.get(`users/${userId}`)
-                    console.log(data.name);
                     
                     setUser(data.name);
                     navigate(location.pathname)
@@ -39,7 +41,6 @@ export const UserProvider = ({children}) => {
     const userRegister = async (formData) => {
         try {
             const {data} = await api.post("users", formData)
-            console.log(data);
             navigate("/loginpage")
         } catch (error) {
             console.error(error);
@@ -77,6 +78,7 @@ export const UserProvider = ({children}) => {
         localStorage.removeItem("@TOKEN:")
         localStorage.removeItem("@USERID:")
         navigate("/")
+        setJobByCompany([])
     }
 
   return (

@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Header } from "../../components/Header";
-import { Footer } from "../../components/Footer";
 import styles from "./style.module.scss";
 import { IoIosSearch } from "react-icons/io";
-import { ListVagas } from "../../components/List/ListVagas";
-import { useJobContext } from "../../providers/JobContext";
-import { InputSearch } from "../../components/Form/InputSearch";
-import { ModalRegister } from "../../components/Modal/modalReview";
+
+import { Header } from "../../../components/Header";
+import { Footer } from "../../../components/Footer";
+import { ListVagas } from "../../../components/List/ListVagas";
+import { useJobContext } from "../../../providers/JobContext";
+import { InputSearch } from "../../../components/Form/InputSearch";
+import { ModalRegister } from "../../../components/Modal/ModalRegister";
 
 export const JobSearchPage = () => {
   const [value, setValue] = useState("");

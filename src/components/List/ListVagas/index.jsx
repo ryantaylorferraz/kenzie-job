@@ -20,7 +20,7 @@ export const ListVagas = () => {
     <>
     {filterJob.length > 0 ? (
     <ul className={styles.ulBox}>
-          {filterJob?.map((job) => (
+          {filterJob?.slice(0,4).map((job) => (
             <li key={job.id} className={styles.liBox}>
               <div className={styles.divContainer}>
                 <div className={styles.divFirst}>
