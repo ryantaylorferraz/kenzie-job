@@ -19,12 +19,13 @@ export const JobCreatePage = () => {
   const { user } = useUserContext();
   const { createVaga } = useJobContext();
   
-  const userId = localStorage.getItem("@USERID:")
+  const userId = JSON.parse(localStorage.getItem("@USERID:"))
 
 
   const submit = (formData) => {
-    const newVaga = {userId, ...formData }
-    
+    const sallary = parseFloat(formData.sallary);
+    const newVaga = {userId, ...formData, sallary }
+
     createVaga(newVaga)
     reset()
   }
@@ -44,7 +45,7 @@ export const JobCreatePage = () => {
             <h1 className="title4">Criar Vaga</h1>
             <form onSubmit={handleSubmit(submit)} className={styles.formContainer}>
               <Input type="text" placeholder="Cargo" {...register("position")} />
-              <Input type="text" placeholder="Salário (opcional)" {...register("sallary")} />
+              <Input type="number" placeholder="Salário (opcional)" {...register("sallary")} />
               <textarea rows="5" cols="30" placeholder="Descrição" {...register("description")} />
               <ButtonSolid>
                 <span className={styles.spanAdd}>

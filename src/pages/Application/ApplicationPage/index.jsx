@@ -6,10 +6,13 @@ import { ListMyApplications } from "../../../components/List/ListMyApplications"
 import { useUserContext } from "../../../providers/UserContext";
 import { HeaderLogin } from "../../../components/HeaderLogin";
 import { FaArrowLeft } from "react-icons/fa";
+import { useJobContext } from "../../../providers/JobContext";
 
 export const ApplicationPage = () => {
   const { user } = useUserContext();
   const firstLetra = user?.substring(0, 2);
+  const {candidateApplication} = useJobContext()
+
 
   return (
     <>
@@ -33,7 +36,10 @@ export const ApplicationPage = () => {
           <h1 className="title4">Minhas candidaturas</h1>
           <div>
             <ul>
-              <ListMyApplications />
+              {candidateApplication.map(candidate => (
+                <ListMyApplications key={candidate.id} candidate={candidate} />
+
+              ))}
             </ul>
           </div>
         </section>

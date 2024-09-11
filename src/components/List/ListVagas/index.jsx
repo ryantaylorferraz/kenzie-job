@@ -11,7 +11,7 @@ export const ListVagas = () => {
 
     const { filterJob, showModal, setShowModal, registerShowModal } = useJobContext()
 
-
+    
     const handleTextJob = (jobId) => {
       setExpandedJobId((prevId) => (prevId === jobId ? null : jobId))
     }

@@ -77,6 +77,7 @@ export const UserProvider = ({children}) => {
         setUser(null)
         localStorage.removeItem("@TOKEN:")
         localStorage.removeItem("@USERID:")
+        localStorage.removeItem("@JOB:")
         navigate("/")
         setJobByCompany([])
     }

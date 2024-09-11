@@ -2,21 +2,19 @@ import React, { useState } from 'react'
 import { FaMinus } from "react-icons/fa";
 import styles from "./style.module.scss"
 import { IoMdAdd } from 'react-icons/io';
+import { useJobContext } from '../../../providers/JobContext';
 
-export const ListMyApplications = () => {
+export const ListMyApplications = ({candidate}) => {
   const [expandedJobId, setExpandedJobId] = useState(false);
   const [showDetails, setShowDetails] = useState(false);
+  const {jobByCompany} = useJobContext()
 
-  const handleTextJob = (jobId) => {
-    setExpandedJobId((prevId) => (prevId === jobId ? null : jobId))
-  }
-
-
-
+  const filterJob = jobByCompany.find(job => job.id === candidate.jobId)
+  
   return (
     <li className={styles.liContainer}>
       <div className={styles.divBox}>
-        <h3 className='title2'>José da Silva - Desenvolvedor Full Stack Jr</h3>
+        <h3 className='title2'>{candidate.name} - {candidate.job}</h3>
         <span onClick={() => setShowDetails(!showDetails)}>
           {showDetails ? (
             <FaMinus size={32} color="#8490FF" />
@@ -28,7 +26,7 @@ export const ListMyApplications = () => {
         <>
       <div className={styles.divDetails}>
         <p className='paragraph' >Detalhes da candidatura:</p>
-        <p>E-mail: <span className="paragraphBold">josedasilva@email.com</span></p>
+        <p>E-mail: <span className="paragraphBold">{candidate.email}</span></p>
       </div>
         </>
       ) : null}

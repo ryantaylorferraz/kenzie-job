@@ -14,6 +14,10 @@ export const JobProvider = ({children}) => {
       const savedJob = localStorage.getItem("@JOB:");
       return savedJob ? JSON.parse(savedJob) : [];
   })
+  const [jobIdUser, setJobIdUser] = useState(null) 
+  const [candidateApplication, setCandidateApplication] = useState([]) 
+
+
 
   const navigate = useNavigate()
 
@@ -24,6 +28,7 @@ export const JobProvider = ({children}) => {
 
     const [jobModal, setJobModal] = useState(null)
     const [jobByCompany, setJobByCompany] = useState([])
+    
 
     const token = localStorage.getItem("@TOKEN:")
     const userId = localStorage.getItem("@USERID:")
@@ -32,7 +37,7 @@ export const JobProvider = ({children}) => {
 
     useEffect(() => {
       if (location.pathname !== "/jobSearch") {
-          setSearch(""); // Reseta o search quando o caminho não é "/jobSearch"
+          setSearch("");
       }
 
   }, [location.pathname])
@@ -42,7 +47,6 @@ export const JobProvider = ({children}) => {
         const getJob = async () => {
             try {
                 const { data } = await api.get("jobs?_expand=user")
-                 
                 setListJob(data)
             } catch (error) {
                 console.error('Erro ao buscar dados:', error);
@@ -59,12 +63,29 @@ export const JobProvider = ({children}) => {
 
     const registerVaga = async (formData) => {
       try {
-        await api.post("applications", formData)
+       const {data} =  await api.post("applications", formData)
+        
       } catch (error) {
         console.error(error);
         
       }
-    }
+    }    
+
+    useEffect(() => {
+      const getApplications = async () => {
+        try {
+          const {data} = await api.get(`jobs/${userId}/applications`, {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          })
+          setCandidateApplication(data)
+        } catch (error) {
+          console.error(error);
+        }
+      };
+      getApplications();
+    }, [])
 
     const registerShowModal = (payload) => {
       setShowModal(!showModal)
@@ -78,6 +99,7 @@ export const JobProvider = ({children}) => {
             Authorization: `Bearer ${token}`
           }
         })
+        setJobIdUser(data.userId)
 
         setJobByCompany([...jobByCompany, data])
         toast.success("Vaga adicionada com sucesso!");
@@ -91,7 +113,7 @@ export const JobProvider = ({children}) => {
       const getVagas = async () => {
         try {
           const {data} = await api.get(`users/${userId}/jobs`)
-          setJobByCompany(data);         
+          setJobByCompany(data);    
         } catch (error) {
           console.error(error);
           
@@ -112,7 +134,6 @@ export const JobProvider = ({children}) => {
           });
   
           setJobByCompany((prevJobs) => {
-            console.log(prevJobs);
             
               const updatedJobs = prevJobs.map(job => 
                   job.id === updatingId.id ? data : job
@@ -122,31 +143,31 @@ export const JobProvider = ({children}) => {
   
           toast.success("Vaga atualizada com sucesso");
           navigate("/landingpage/jobs");
-  
+
       } catch (error) {
           console.error(error);
           toast.error("Erro ao atualizar a vaga");
       }
   };
-
-    const deleteVaga = async (deletingId) => {
-      try {
-        await api.delete(`jobs/${deletingId}`, {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        })
-        setJobByCompany((prevJobs) => prevJobs.filter(job => job.id !== deletingId));
-        toast.success("Vaga deletada com sucesso")
-
-      } catch (error) {
-        console.error(error);
-      }
+  const deleteVaga = async (deletingId) => {
+    try {
+      const {data} = await api.delete(`jobs/${deletingId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      
+      setJobByCompany((prevJobs) => prevJobs.filter(job => job.id !== deletingId));
+      
+      toast.success("Vaga deletada com sucesso");
+    } catch (error) {
+      console.error(error);
+      toast.error("Erro ao deletar a vaga. Tente novamente.");
     }
-
+  }
 
   return (
-    <JobContext.Provider value={{listJob, filterJob, setSearch, vagas, setVagas, registerVaga, showModal, setShowModal, registerShowModal, jobModal, createVaga, jobByCompany, setJobByCompany, deleteVaga, updateVaga, jobId, setJobId}}>
+    <JobContext.Provider value={{listJob, filterJob, setSearch, vagas, setVagas, registerVaga, showModal, setShowModal, registerShowModal, jobModal, createVaga, jobByCompany, setJobByCompany, deleteVaga, updateVaga, jobId, setJobId, jobIdUser, candidateApplication}}>
         {children}
     </JobContext.Provider>
   )

@@ -6,21 +6,21 @@ import { generatedId } from "../../count/count";
 import { useJobContext } from "../../providers/JobContext";
 
 export const ModalRegister = ({movieImg}) => {
-  const {jobModal, registerVaga, showModal, setShowModal} = useJobContext()
+  const {jobModal, registerVaga, showModal, setShowModal, jobIdUser} = useJobContext()
   const {register, handleSubmit} = useForm()
+  
 
   const submit = (formData) => {
     const newApplication = {
-      jobId: jobModal.id,
+      jobId: jobModal.userId,
+      job: jobModal.position,
       userId: generatedId(),
       ...formData
     }
-    console.log(newApplication);
     setShowModal(!showModal)
     
     registerVaga(newApplication)
   }
-
   
   return (
     <div className={styles.modalOverlay} role='dialog'>
