@@ -9,15 +9,16 @@ export const ModalRegister = ({movieImg}) => {
   const {jobModal, registerVaga, showModal, setShowModal, jobIdUser} = useJobContext()
   const {register, handleSubmit} = useForm()
   
+  console.log(jobModal)
 
   const submit = (formData) => {
     const newApplication = {
-      jobId: jobModal.userId,
-      job: jobModal.position,
-      userId: generatedId(),
+      jobId: jobModal.id,
+      userId: jobModal.userId,
       ...formData
     }
     setShowModal(!showModal)
+    console.log(newApplication);
     
     registerVaga(newApplication)
   }

@@ -6,7 +6,7 @@ import { useJobContext } from "../../../providers/JobContext";
 import { Link } from "react-router-dom";
 
 export const ListMyVagas = ({job}) => {
-  const { setJobId, deleteVaga} = useJobContext()
+  const { setJobId, deleteJob} = useJobContext()
 
   return (
     <li className={styles.liContainer}>
@@ -18,7 +18,7 @@ export const ListMyVagas = ({job}) => {
             <MdOutlineEdit />
           </span>
           </Link>
-          <span onClick={() => deleteVaga(job.id)}>
+          <span onClick={() => deleteJob(job.id)}>
             <FaRegTrashCan />
           </span>
         </div>

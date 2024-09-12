@@ -19,6 +19,7 @@
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
+    gap: 1rem;
     .divFirst {
         display: flex;
         align-items: center;
@@ -32,4 +33,10 @@
         padding-left: .5rem;
     }
 
+}
+
+@media(max-width: 450px) {
+    .divContainer {
+        flex-direction: column;
+    }
 }

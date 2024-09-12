@@ -35,9 +35,13 @@ export const ApplicationPage = () => {
           </div>
           <h1 className="title4">Minhas candidaturas</h1>
           <div>
-            <ul>
+            <ul className={styles.ulBoxApplication}>
               {candidateApplication.map(candidate => (
+                <>
                 <ListMyApplications key={candidate.id} candidate={candidate} />
+                <ListMyApplications key={candidate.id} candidate={candidate} />
+                <ListMyApplications key={candidate.id} candidate={candidate} />
+                </>
 
               ))}
             </ul>

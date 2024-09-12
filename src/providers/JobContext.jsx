@@ -5,160 +5,163 @@ import { toast } from 'react-toastify'
 
 export const JobContext = createContext({})
 
-export const JobProvider = ({children}) => {
-    const [ listJob, setListJob ] = useState([])
-    const [ search, setSearch ] = useState("")
-    const [vagas, setVagas] = useState(false);
-    const [showModal, setShowModal] = useState(false)
-    const [jobId, setJobId] = useState(() => {
-      const savedJob = localStorage.getItem("@JOB:");
-      return savedJob ? JSON.parse(savedJob) : [];
+export const JobProvider = ({ children }) => {
+  const [listJob, setListJob] = useState([])
+  const [search, setSearch] = useState("")
+  const [vagas, setVagas] = useState(false);
+  const [showModal, setShowModal] = useState(false)
+  const [jobId, setJobId] = useState(() => {
+    const savedJob = localStorage.getItem("@JOB:");
+    return savedJob ? JSON.parse(savedJob) : [];
   })
-  const [jobIdUser, setJobIdUser] = useState(null) 
-  const [candidateApplication, setCandidateApplication] = useState([]) 
-
-
+  const [jobIdUser, setJobIdUser] = useState(null)
+  const [candidateApplication, setCandidateApplication] = useState([])
+  console.log(candidateApplication);
 
   const navigate = useNavigate()
 
-    useEffect(() => {
-      localStorage.setItem("@JOB:", JSON.stringify(jobId))
-    }, [jobId])
-    
+  useEffect(() => {
+    localStorage.setItem("@JOB:", JSON.stringify(jobId))
+  }, [jobId])
 
-    const [jobModal, setJobModal] = useState(null)
-    const [jobByCompany, setJobByCompany] = useState([])
-    
 
-    const token = localStorage.getItem("@TOKEN:")
-    const userId = localStorage.getItem("@USERID:")
-    
-    const location = useLocation()
+  const [jobModal, setJobModal] = useState(null)
+  const [jobByCompany, setJobByCompany] = useState([])
 
-    useEffect(() => {
-      if (location.pathname !== "/jobSearch") {
-          setSearch("");
-      }
+
+  const token = localStorage.getItem("@TOKEN:")
+  const userId = localStorage.getItem("@USERID:")
+
+  const location = useLocation()
+
+  useEffect(() => {
+    if (location.pathname !== "/jobSearch") {
+      setSearch("");
+    }
 
   }, [location.pathname])
 
 
-    useEffect(() => {
-        const getJob = async () => {
-            try {
-                const { data } = await api.get("jobs?_expand=user")
-                setListJob(data)
-            } catch (error) {
-                console.error('Erro ao buscar dados:', error);
-                
-            }
-          };  getJob()
-    }, [])
-
-    const filterJob = listJob.filter((product) => {
-      const position = product.position || "";
-      const filterSearch = typeof search === "string" && search !== "" ? position.toLowerCase().includes(search.toLowerCase()) : true;
-      return filterSearch;
-    }) 
-
-    const registerVaga = async (formData) => {
+  useEffect(() => {
+    const getJob = async () => {
       try {
-       const {data} =  await api.post("applications", formData)
-        
+        const { data } = await api.get("jobs?_expand=user")
+        setListJob(data)
       } catch (error) {
-        console.error(error);
-        
+        console.error('Erro ao buscar dados:', error);
+
       }
-    }    
+    }; getJob()
+  }, [])
 
-    useEffect(() => {
-      const getApplications = async () => {
-        try {
-          const {data} = await api.get(`jobs/${userId}/applications`, {
-            headers: {
-              Authorization: `Bearer ${token}`
-            }
-          })
-          setCandidateApplication(data)
-        } catch (error) {
-          console.error(error);
-        }
-      };
-      getApplications();
-    }, [])
+  const filterJob = listJob.filter((product) => {
+    const position = product.position || "";
+    const filterSearch = typeof search === "string" && search !== "" ? position.toLowerCase().includes(search.toLowerCase()) : true;
+    return filterSearch;
+  })
 
-    const registerShowModal = (payload) => {
-      setShowModal(!showModal)
-      setJobModal(payload)
+  const registerVaga = async (formData) => {
+    try {
+      const { data } = await api.post("applications", formData)
+
+    } catch (error) {
+      console.error(error);
+
+
+
     }
+  }
 
-    const createVaga = async (formData) => {
+  useEffect(() => {
+    const getApplications = async () => {
       try {
-        const {data} = await api.post("jobs", formData, {
+        const { data } = await api.get(`applications?userId=${userId}&_expand=job`, {
           headers: {
             Authorization: `Bearer ${token}`
           }
         })
-        setJobIdUser(data.userId)
-
-        setJobByCompany([...jobByCompany, data])
-        toast.success("Vaga adicionada com sucesso!");
-
+        console.log(data)
+        setCandidateApplication(data)
       } catch (error) {
         console.error(error);
       }
+    };
+    getApplications();
+  }, [userId, token])
+
+  const registerShowModal = (payload) => {
+    setShowModal(!showModal)
+    setJobModal(payload)
+  }
+
+  const createVaga = async (formData) => {
+    try {
+      const { data } = await api.post("jobs", formData, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      setJobIdUser(data.userId)
+
+      setJobByCompany([...jobByCompany, data])
+      toast.success("Vaga adicionada com sucesso!");
+
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  useEffect(() => {
+    const getVagas = async () => {
+      try {
+        const { data } = await api.get(`users/${userId}/jobs`)
+        setJobByCompany(data);
+      } catch (error) {
+        console.error(error);
+
+      }
+    };
+    if (userId) {
+      getVagas();
     }
 
-    useEffect(() => {
-      const getVagas = async () => {
-        try {
-          const {data} = await api.get(`users/${userId}/jobs`)
-          setJobByCompany(data);    
-        } catch (error) {
-          console.error(error);
-          
-        }
-      };
-      if(userId) {
-        getVagas();
-      }
-  
-    }, [userId])
+  }, [userId])
 
-    const updateVaga = async (updatingId, formData) => {
-      try {
-          const { data } = await api.patch(`jobs/${updatingId.id}`, formData, {
-              headers: {
-                  Authorization: `Bearer ${token}`
-              }
-          });
-  
-          setJobByCompany((prevJobs) => {
-            
-              const updatedJobs = prevJobs.map(job => 
-                  job.id === updatingId.id ? data : job
-              );
-              return updatedJobs;
-          });
-  
-          toast.success("Vaga atualizada com sucesso");
-          navigate("/landingpage/jobs");
-
-      } catch (error) {
-          console.error(error);
-          toast.error("Erro ao atualizar a vaga");
-      }
-  };
-  const deleteVaga = async (deletingId) => {
+  const updateVaga = async (updatingId, formData) => {
     try {
-      const {data} = await api.delete(`jobs/${deletingId}`, {
+      const { data } = await api.patch(`jobs/${updatingId.id}`, formData, {
         headers: {
           Authorization: `Bearer ${token}`
         }
       });
-      
+
+      setJobByCompany((prevJobs) => {
+
+        const updatedJobs = prevJobs.map(job =>
+          job.id === updatingId.id ? data : job
+        );
+        return updatedJobs;
+      });
+
+      toast.success("Vaga atualizada com sucesso");
+      navigate("/landingpage/jobs");
+
+    } catch (error) {
+      console.error(error);
+      toast.error("Erro ao atualizar a vaga");
+    }
+  };
+  const deleteJob = async (deletingId) => {
+    try {
+          await api.delete(`jobs/${deletingId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+
+      setCandidateApplication(prev => prev.filter(application => application.jobId !== deletingId))
       setJobByCompany((prevJobs) => prevJobs.filter(job => job.id !== deletingId));
-      
+
       toast.success("Vaga deletada com sucesso");
     } catch (error) {
       console.error(error);
@@ -167,8 +170,8 @@ export const JobProvider = ({children}) => {
   }
 
   return (
-    <JobContext.Provider value={{listJob, filterJob, setSearch, vagas, setVagas, registerVaga, showModal, setShowModal, registerShowModal, jobModal, createVaga, jobByCompany, setJobByCompany, deleteVaga, updateVaga, jobId, setJobId, jobIdUser, candidateApplication}}>
-        {children}
+    <JobContext.Provider value={{ listJob, filterJob, setSearch, vagas, setVagas, registerVaga, showModal, setShowModal, registerShowModal, jobModal, createVaga, jobByCompany, setJobByCompany, deleteJob, updateVaga, jobId, setJobId, jobIdUser, candidateApplication }}>
+      {children}
     </JobContext.Provider>
   )
 }

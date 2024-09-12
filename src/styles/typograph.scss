@@ -1,7 +1,7 @@
 .paragraphBold {
   font-family: var(--font-secondary);
   color: var(--color-black);
-  font-size: 1.125rem;
+  font-size: clamp(0.8rem, 0.67rem + 0.52vw, 1.125rem);
   font-weight: 700;
 }
 .paragraphBold2 {

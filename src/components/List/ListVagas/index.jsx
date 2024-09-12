@@ -18,7 +18,7 @@ export const ListVagas = () => {
 
   return (
     <>
-    {filterJob.length > 0 ? (
+    {filterJob?.length > 0 ? (
     <ul className={styles.ulBox}>
           {filterJob?.slice(0,4).map((job) => (
             <li key={job.id} className={styles.liBox}>

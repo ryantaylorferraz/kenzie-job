@@ -38,6 +38,7 @@ export const JobSearchPage = () => {
           <div className={styles.divContainer}>
             <h1 className="title1">Busca de vagas</h1>
             <div className={styles.divBox}>
+              <h3 className="paragraphBold">Digite o que você está procurando:</h3>
               <div className={styles.divInput}>
                 <form className={styles.formBox} onSubmit={submit}>
                   <InputSearch
@@ -50,7 +51,7 @@ export const JobSearchPage = () => {
                   </button>
                 </form>
               </div>
-              <div>
+              <div className={styles.divShowResults}>
                 {vagas && value ? (
                   <div className={styles.divNotFind}>
                     <p>Resultados de busca para: <span className="title3">{value}</span></p>

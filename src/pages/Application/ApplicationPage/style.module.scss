@@ -18,4 +18,10 @@
         display: flex;
         gap: 2.5rem;
     }
+    
+    .ulBoxApplication {
+        height: 15rem;
+        max-height: 25rem;
+        overflow-y: auto;
+    }
 }

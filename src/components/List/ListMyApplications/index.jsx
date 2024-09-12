@@ -14,7 +14,7 @@ export const ListMyApplications = ({candidate}) => {
   return (
     <li className={styles.liContainer}>
       <div className={styles.divBox}>
-        <h3 className='title2'>{candidate.name} - {candidate.job}</h3>
+        <h3 className='title2'>{candidate.name} - {candidate.job.position}</h3>
         <span onClick={() => setShowDetails(!showDetails)}>
           {showDetails ? (
             <FaMinus size={32} color="#8490FF" />
